@@ -12,6 +12,7 @@ const GetTodos = () => {
               );
               console.log("Data from fetch: -------------------", result.data);
               setTodoData(result.data);
+              console.log("THIS COMPO is USED woiooooooooooooooooor!");
 
         }
         fetchTodos();

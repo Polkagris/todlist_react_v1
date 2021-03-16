@@ -9,7 +9,6 @@ import axios from 'axios';
 
 const Login = () => {
 
-
     const [emailValue, setEmailValue] = React.useState("")
     const handleEmailChange = (event: { target: { value: string }; }) => setEmailValue(event.target.value)
 
@@ -17,33 +16,25 @@ const Login = () => {
     const handlePasswordChange = (event: { target: { value: string }; }) => setPasswordValue(event.target.value)
 
 
-    useEffect(() => {
-        console.log("Type email -------------------", typeof({emailValue}.toString));
-        console.log("Type email -------------------", typeof({emailValue}));
-        console.log("Type email -------------------", emailValue);
-    }, [])
-/* 
-        const postRequestPostsTest = async()  => {
-            const result = await axios.post(
-                'https://jsonplaceholder.typicode.com/posts', 
-                {
-                    title: 'foo',
-                    body: 'bar',
-                    userId: 1
-                }, {
-                    headers: {
-                    'Content-type': 'application/json;',
-                  }
-                }
+    const loginUser = async()  => {
+        const result = await axios.post(
+            'http://localhost:8080/user/login', 
+            {
+                email: emailValue,
+                password: passwordValue
+            }, {
+                headers: {
+                'content-type': 'application/json',
+              }
+            }
+          );
+        localStorage.setItem("token", result.data);
+        // Spinner here?
+    }
 
-              );
-               console.log("Data from fetch: -------------------", result);
-              console.log("Clicked -------------------");
-              // setTodoData(result.data);
 
-        } */
         // WORKS!!
-        const getTodosTest = async()  => {
+/*         const getTodosTest = async()  => {
             const result = await axios(
                 'http://localhost:8080/api/todos',
                 {
@@ -58,31 +49,9 @@ const Login = () => {
               console.log("Clicked -------------------");
               // setTodoData(result.data);
 
-        }
+        } */
         
-        const loginUser = async()  => {
-            const result = await axios.post(
-                'http://localhost:8080/user/login', 
-                {
-                    // WORKS!!
-                    /* email: "jtw@finally.done",
-                    password: "qwerty" */
-
-                    email: emailValue,
-                    password: passwordValue
-                }, {
-                    headers: {
-                    'content-type': 'application/json',
-                  }
-                }
-              );
-              localStorage.setItem("token", result.data);
-               console.log("Data from fetch: -------------------", result);
-              //console.log("Clicked -------------------");
-              console.log("Type -------------------", typeof({emailValue}.toString));
-              // setTodoData(result.data);
-        }
-
+/* 
         const testNewLogin = ()  => {
             const result =
             axios({
@@ -100,13 +69,8 @@ const Login = () => {
                console.log("Data from fetch: -------------------", result);
                console.log("Clicked -------------------");
               // setTodoData(result.data);
-        }
+        } */
 
-        
-
-        
-
-      
     return (
         <div>
             <FormControl id="email">
@@ -117,6 +81,7 @@ const Login = () => {
                 <Input value={passwordValue} onChange={handlePasswordChange} type="password" />
                 <Button onClick={loginUser} colorScheme="blue">Login</Button>
                 <h3>Teszt</h3>
+                <a href="/todos">Todos</a>
             </FormControl>
             <div>
                 <a href="/">Register</a>
