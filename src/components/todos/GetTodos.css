@@ -1,0 +1,20 @@
+.createNewTodoContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.todoListContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.singleTodo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 500px;
+}

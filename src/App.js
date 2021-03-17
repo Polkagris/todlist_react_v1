@@ -15,9 +15,9 @@ function App() {
         <Route path="/" component={Login} exact />
         <Route path="/login" component={Login} />
         <Route path="/needlogin" component={NotLoggedInDisclamer} />
-        <Route path="/todos" component={GetTodos} />
         {/* <Route path="/todos" component={GetTodos} /> */}
-        <ProtectedRoutes exact path="/todosp" component={GetTodos} />
+        {/* <Route path="/todos" component={GetTodos} /> */}
+        <ProtectedRoutes exact path="/todos" component={GetTodos} />
         <Route component={NothingToSeeHere} />
       </Switch>
     </div>

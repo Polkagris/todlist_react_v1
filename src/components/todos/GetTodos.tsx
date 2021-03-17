@@ -1,87 +1,125 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import jwt_decode from "jwt-decode";
+import { Box, Button, Input, FormLabel } from "@chakra-ui/react";
+import "./GetTodos.css";
+
 
 const GetTodos = () => {
+
+
     const [todoData, setTodoData] = useState<Array<todoType>>([]);
     const [tokenDecoded, setTokenDecoded] = useState(Object);
 
 
+    const [userIdFromToken, setUserIdFromToken] = useState(Number);
+    const [newTodoName, setNewTodoName] = useState("");
+
+
+    const handleNewTodoNameChange = (event: { target: { value: string }; }) => setNewTodoName(event.target.value)
 
 
 
+    const handleDeleteTodo = async(id: Number) => {
+        const localStorageToken = localStorage.getItem("token");
+        console.log("Todo id:", id);
+        console.log("Todo id type:", typeof(id));
 
-// $( "#word" + lbl.eq(i).text().replace(/([ /])/g, '\\$1') ).hide();
 
-/*         const getUserId = async() => {
-            const localStorageToken = localStorage.getItem("token");
-            if(localStorageToken == null) {
-                return;
-            } else {
-                await setTokenDecoded(jwt_decode(localStorageToken));
+        const result = await axios.delete(
+            `http://localhost:8080/api/todos/${id}`,
+             {
+                headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${localStorageToken}`
+              }
             }
-            const userId = tokenDecoded["user id"]
-            return userId;
-        } */
+          );
+          console.log("result status of delete:", result.status);
+          // Fetch new list of todos with the newest addition
+          fetchTodos()
+    }
 
-        console.log("token decoded user id:", tokenDecoded["user id"])
-        console.log("token decoded:", tokenDecoded)
-        const userId = tokenDecoded["user id"]
+    
+    const handleCreateTodo = async() => {
+        const localStorageToken = localStorage.getItem("token");
+        console.log("user id:", userIdFromToken);
 
-
-        // WORKS!!
-        const getTodosTest = async()  => {
-            //console.log("token decoded:", tokenDecoded["user id"])
-            //console.log("token decoded:", tokenDecoded)
-            let tokenUserID = "";
-            let nUserID = 0;
-
-            const localStorageToken = localStorage.getItem("token");
-            if(localStorageToken == null) {
-                return;
-            } else {
-                //setTokenDecoded(await jwt_decode(localStorageToken));
-                const tokenValues: any = await jwt_decode(localStorageToken)
-                const tokenUserID = await tokenValues["user id"]
-                console.log("type of userId in function:", typeof(tokenUserID));
-                nUserID = parseInt(tokenUserID)
-                console.log("token decoded in function nUserID:", typeof(nUserID))
-                console.log("token values:", tokenValues)
-            }
-            const userId = await tokenDecoded["user id"]
-            console.log("type of userId:", typeof(userId));
-            let axiosUser = parseInt(tokenUserID);
-            console.log("userID axios number:", axiosUser);
-
-            const result = await axios(
-                `http://localhost:8080/api/mytodos/${nUserID}`,
+            const result = await axios.post(
+                'http://localhost:8080/api/todos', 
                 {
+                    userid: userIdFromToken,
+                    name: newTodoName
+                }, {
                     headers: {
-                    'Content-type': 'application/json;',
+                    'content-type': 'application/json',
                     'Authorization': `Bearer ${localStorageToken}`
                   }
                 }
-
               );
-               console.log("Data from fetch: -------------------", result);
-              console.log("Clicked -------------------");
-              setTodoData(result.data);
+              // Fetch new list of todos with the newest addition
+              fetchTodos()
+    }
 
+
+    const fetchTodos = async()  => {
+
+        let nUserID = 0;
+        const localStorageToken = localStorage.getItem("token");
+
+
+        // NULL check
+        if(localStorageToken == null) {
+            return;
+        } else {
+            const tokenValues: any = await jwt_decode(localStorageToken)
+            const tokenUserID = await tokenValues["user id"]
+
+            nUserID = parseInt(tokenUserID)
         }
-        useEffect(() => {
-        getTodosTest();
-      }, []);
+
+
+        // to be used in CRUD operations
+        setUserIdFromToken(nUserID);
+
+        const result = await axios(
+            `http://localhost:8080/api/mytodos/${nUserID}`,
+            {
+                headers: {
+                'Content-type': 'application/json;',
+                'Authorization': `Bearer ${localStorageToken}`
+                }
+            }
+
+            );
+            console.log("RESULT FROM FETCH TODOS:", result);
+            setTodoData(result.data);
+    }
+
+    // Initialize todos
+    useEffect(() => {
+    fetchTodos();
+    }, [setTodoData]);
       
     return (
         <div>
             <h1>Todos</h1>
             <a href="/">Back to home page</a>
+            <FormLabel>New todo</FormLabel>
+            <div className="createNewTodoContainer">
+                <Input bg="white" value={newTodoName} onChange={handleNewTodoNameChange} type="text" />
+                <Button colorScheme="purple" onClick={handleCreateTodo}>Create</Button>
+            </div>
             {todoData && 
-                <ul>{todoData.map(todo => 
-                        <p key={todo.id}>{todo.name}</p>
+                <div className="todoListContainer">
+                    {todoData.map(todo =>     
+                        <Box m={1} bg="#d1dbc8" w="100%" p={4} color="white" className="singleTodo">
+                            <p key={todo.id}>{todo.name}</p>
+                            <Button onClick={() => handleDeleteTodo(parseInt(todo.id))} bg="tomato">Delete</Button>
+                        </Box>
                         )
                     }
-                </ul>
+                </div>
             }
         </div>
     )
