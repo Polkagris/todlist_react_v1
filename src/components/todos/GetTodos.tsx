@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import jwt_decode from "jwt-decode";
-import { Box, Button, Input, FormLabel } from "@chakra-ui/react";
+import { Box, Button, Input, FormLabel, Spinner } from "@chakra-ui/react";
 import "./GetTodos.css";
 import NavigationBar from '../navigation/NavigationBar';
 
@@ -99,7 +99,7 @@ const GetTodos = () => {
                     <Button colorScheme="purple" onClick={handleCreateTodo}>Create</Button>
                 </div>
             </div>
-            {todoData && 
+            {todoData &&
                 <div className="todoListContainer">
                     {todoData.map(todo =>     
                         <Box m={1} bg="#e055d7" w="100%" p={2} color="white" className="singleTodo">
@@ -109,7 +109,7 @@ const GetTodos = () => {
                         )
                     }
                 </div>
-            }
+                }
         </div>
     )
 }

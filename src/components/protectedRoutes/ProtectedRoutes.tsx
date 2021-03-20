@@ -18,7 +18,6 @@ const ProtectedRoutes = ({ component: Component, ...rest }: any) => {
 interface todoType {
     id: String,
     title: String,
-    completed: boolean,
     userId: String
 }
 
