@@ -31,7 +31,6 @@ const GetTodos = () => {
             }
         );
           console.log("result status of delete:", result.status);
-          // Fetch new list of todos with the newest addition
           fetchTodos()
     }
 

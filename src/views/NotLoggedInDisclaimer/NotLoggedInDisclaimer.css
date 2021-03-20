@@ -1,0 +1,22 @@
+.disclaimerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.disclaimerContainer {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin-top: 200px;
+}
+
+.notLoggedInTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+}

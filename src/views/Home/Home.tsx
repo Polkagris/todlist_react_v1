@@ -45,7 +45,7 @@ const Home = () => {
             </p>
             <div className="buttonContainer">
                 <Button p="30px" width="200px" colorScheme="green"><Link to={localStorageToken ? "/todos" : "/login"}>Get started</Link></Button>
-                <Button p="30px" width="200px" bg="lightgray"><Link to="/todos">Github</Link></Button>
+                <Button p="30px" width="200px" bg="lightgray"><a target="_blank" href="https://github.com/Polkagris/todlist_react_v1">Github</a></Button>
             </div>
             </div>
             <Modal isOpen={localStorageGdpr === null || localStorageGdpr === "false"} onClose={handleAcceptGdpr}>

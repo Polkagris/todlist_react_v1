@@ -2,14 +2,12 @@ import "./App.css";
 import React, { createContext } from "react";
 import GetTodos from "./components/todos/GetTodos";
 import Login from "./views/Login/Login";
-import Register from "./views/Register";
+import Register from "./views/Register/Register";
 import { Route, Switch } from "react-router-dom";
-import NotLoggedInDisclamer from "./views/NotLoggedInDisclamer";
-// import { MyTodos } from "./components/todos/MyTodos";
+import NotLoggedInDisclamer from "./views/NotLoggedInDisclaimer/NotLoggedInDisclaimer";
 import ProtectedRoutes from "./components/protectedRoutes/ProtectedRoutes";
 import NothingToSeeHere from "./components/nothingToSeeHere/NothingToSeeHere";
 import Home from "./views/Home/Home";
-import NavigationBar from "./components/navigation/NavigationBar";
 import Signout from "./views/Signout/Signout";
 
 function App() {
@@ -26,6 +24,7 @@ function App() {
         <Route path="/" component={Home} exact />
         {/* <Route path="/" component={Login} exact /> */}
         <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Route path="/signedout" component={Signout} exact />
         <Route path="/needlogin" component={NotLoggedInDisclamer} />
         {/* <Route path="/todos" component={GetTodos} /> */}

@@ -6,7 +6,7 @@ import {
   } from "@chakra-ui/react"
   import { Button } from "@chakra-ui/react"
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useToast } from "@chakra-ui/react"
 import "./Login.css";
 import NavigationBar from '../../components/navigation/NavigationBar';
@@ -77,7 +77,7 @@ const Login = () => {
             </FormControl>
         </div>
         <div>
-          <a href="/">Register</a>
+          <Button p="25px" colorScheme="green" ><Link to="/register">Sign up</Link></Button>
         </div>
       </div>
     )

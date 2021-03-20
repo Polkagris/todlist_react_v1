@@ -1,22 +1,16 @@
 import React, { useState } from "react";
-import { useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./NavigationBar.css";
-import NavBarContext from "../../App";
-import Consumer from "../../App";
 
 
 const NavigationBar = ({localStorageToken}: Props) => {
     const [storageToken, setStorageToken] = useState(localStorageToken);
-    // const navBarContext = useContext(NavBarContext);
-
-    // const localStorageToken = localStorage.getItem("token");
     const history = useHistory();
     
-    // Force re-render so login becomes logout and vica versa
+
     const [, updateState] = React.useState({});
     const forceUpdate = React.useCallback(() => setStorageToken(localStorageToken), []);
-    console.log("token from navbar component:", localStorageToken);
+
 
     const handleLogoutClick = () => {
         history.push("/signedout");
@@ -26,9 +20,6 @@ const NavigationBar = ({localStorageToken}: Props) => {
 
     }
 
-/*     useEffect(() => {
-        setStorageToken("");
-    }, [handleLogoutClick]) */
 
     return (
             <div className="navWrapper">

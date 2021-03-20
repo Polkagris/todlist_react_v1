@@ -10,10 +10,7 @@ const GetTodos = () => {
             const result = await axios(
                 'https://jsonplaceholder.typicode.com/todos',
               );
-              console.log("Data from fetch: -------------------", result.data);
               setTodoData(result.data);
-              console.log("THIS COMPO is USED woiooooooooooooooooor!");
-
         }
         fetchTodos();
       }, []);
