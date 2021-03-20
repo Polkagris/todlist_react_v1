@@ -54,8 +54,8 @@ const Home = () => {
                 <ModalHeader>Privacy policy agreement</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                <p>By using this site you agree to our privacy policy</p>
-                <p>Our privacy policy can be found <a href="/">here</a></p>
+                <p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
+                <p>Our privacy policy can be found <a className="linkButton" href="/gdpr">here</a></p>
                 </ModalBody>
 
                 <ModalFooter>

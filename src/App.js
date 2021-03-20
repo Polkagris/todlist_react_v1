@@ -3,12 +3,13 @@ import React, { createContext } from "react";
 import GetTodos from "./components/todos/GetTodos";
 import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
-import { Route, Switch } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import NotLoggedInDisclamer from "./views/NotLoggedInDisclaimer/NotLoggedInDisclaimer";
 import ProtectedRoutes from "./components/protectedRoutes/ProtectedRoutes";
 import NothingToSeeHere from "./components/nothingToSeeHere/NothingToSeeHere";
 import Home from "./views/Home/Home";
 import Signout from "./views/Signout/Signout";
+import GdprAgreement from "./views/GdprAgreement/GdprAgreement";
 
 function App() {
   //landingpage with todos
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" component={Home} exact />
         {/* <Route path="/" component={Login} exact /> */}
         <Route path="/login" component={Login} />
+        <Route path="/gdpr" component={GdprAgreement} exact />
         <Route path="/register" component={Register} />
         <Route path="/signedout" component={Signout} exact />
         <Route path="/needlogin" component={NotLoggedInDisclamer} />
@@ -32,6 +34,7 @@ function App() {
         <ProtectedRoutes exact path="/todos" component={GetTodos} />
         <Route component={NothingToSeeHere} />
       </Switch>
+      <Link to="/gdpr">Privacy policy</Link>
     </div>
   );
 }
